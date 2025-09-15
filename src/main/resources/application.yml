@@ -1,0 +1,16 @@
+spring:
+  applicaton:
+    name:
+      memories-diary
+  datasource:
+    url: jdbc:postgresql://postgres:5432/memories_diary
+    username: postgres
+    password: 12345
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
