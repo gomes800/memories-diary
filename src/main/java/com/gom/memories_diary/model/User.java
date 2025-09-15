@@ -1,5 +1,6 @@
 package com.gom.memories_diary.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,5 +23,6 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Memory> memories = new ArrayList<>();
 }
