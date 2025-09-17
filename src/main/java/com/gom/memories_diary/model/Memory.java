@@ -1,5 +1,6 @@
 package com.gom.memories_diary.model;
 
+import com.gom.memories_diary.dto.CreateMemoryDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,6 +21,13 @@ public class Memory implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
+
+    public Memory(CreateMemoryDTO dto, User owner) {
+        this.title = dto.getTitle();
+        this.date = dto.getDate();
+        this.content = dto.getContent();
+        this.owner = owner;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

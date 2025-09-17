@@ -29,7 +29,7 @@ public class AuthService {
     }
 
     public LoginResponseDTO login(AuthDTO data) {
-        var authToken = new UsernamePasswordAuthenticationToken(data.getLogin(), data.getPassword());
+        var authToken = new UsernamePasswordAuthenticationToken(data.getUsername(), data.getPassword());
         var auth = authenticationManager.authenticate(authToken);
         var token = tokenService.generateToken((User) auth.getPrincipal());
 

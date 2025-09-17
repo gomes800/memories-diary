@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MemoryRepository extends JpaRepository<Memory, Long> {
+
+    boolean existsByIdAndOwnerId(Long id, Long ownerId);
 }
