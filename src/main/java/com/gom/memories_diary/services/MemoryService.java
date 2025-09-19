@@ -28,7 +28,7 @@ public class MemoryService {
         this.memorySecurity = memorySecurity;
         this.userService = userService;
     }
-    
+
     public Page<MemoryResponseDTO> getAllUserMemories(int page, int size) {
         Long ownerId = userService.getUserId();
         Pageable pageable = PageRequest.of(page, size);
