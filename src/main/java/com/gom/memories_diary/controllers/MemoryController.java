@@ -4,6 +4,7 @@ import com.gom.memories_diary.dto.CreateMemoryDTO;
 import com.gom.memories_diary.dto.MemoryResponseDTO;
 import com.gom.memories_diary.model.Memory;
 import com.gom.memories_diary.services.MemoryService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,10 +21,12 @@ public class MemoryController {
         this.memoryService = memoryService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<Memory>> getAll() {
-        List<Memory> memories = memoryService.getAll();
-        return ResponseEntity.ok(memories);
+    @GetMapping("/my-memories")
+    public ResponseEntity<Page<MemoryResponseDTO>> getUserMemmories(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size
+    ) {
+        return ResponseEntity.ok(memoryService.getAllUserMemories(page,size));
     }
 
     @PostMapping
@@ -32,5 +35,20 @@ public class MemoryController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(newMemory);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<MemoryResponseDTO> updateMemory(
+            @PathVariable Long id,
+            @RequestBody CreateMemoryDTO dto
+    ) {
+        MemoryResponseDTO updated = memoryService.updateMemory(id, dto);
+        return ResponseEntity.ok(updated);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteMemory(@PathVariable Long id) {
+        memoryService.deleteMemory(id);
+        return ResponseEntity.noContent().build();
     }
 }

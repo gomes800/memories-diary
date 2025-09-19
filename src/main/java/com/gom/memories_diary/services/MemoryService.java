@@ -5,11 +5,16 @@ import com.gom.memories_diary.dto.MemoryResponseDTO;
 import com.gom.memories_diary.model.Memory;
 import com.gom.memories_diary.model.User;
 import com.gom.memories_diary.repositories.MemoryRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MemoryService {
@@ -23,11 +28,13 @@ public class MemoryService {
         this.memorySecurity = memorySecurity;
         this.userService = userService;
     }
+    
+    public Page<MemoryResponseDTO> getAllUserMemories(int page, int size) {
+        Long ownerId = userService.getUserId();
+        Pageable pageable = PageRequest.of(page, size);
 
-    public List<Memory> getAll() {
-        List<Memory> memories = memoryRepository.findAll();
-
-        return memories;
+        return memoryRepository.findAllByOwnerId(ownerId, pageable)
+                .map(MemoryResponseDTO::fromEntity);
     }
 
     @Transactional
@@ -43,5 +50,29 @@ public class MemoryService {
         Memory saved = memoryRepository.save(newMemory);
 
         return MemoryResponseDTO.fromEntity(saved);
+    }
+
+    @Transactional
+    @PreAuthorize("@memorySecurity.isOwner(#id)")
+    public MemoryResponseDTO updateMemory(Long id, CreateMemoryDTO dto) {
+        Memory memory = memoryRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Memory not found."));
+
+        if (dto.getTitle() != null) memory.setTitle(dto.getTitle());
+        if (dto.getContent() != null) memory.setContent(dto.getContent());
+        if (dto.getDate() != null) memory.setDate(dto.getDate());
+
+        memoryRepository.save(memory);
+
+        return MemoryResponseDTO.fromEntity(memory);
+    }
+
+    @Transactional
+    @PreAuthorize("@memorySecurity.isOwner(#id)")
+    public void deleteMemory(Long id) {
+        Memory memory = memoryRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Memory not found"));
+
+        memoryRepository.delete(memory);
     }
 }
