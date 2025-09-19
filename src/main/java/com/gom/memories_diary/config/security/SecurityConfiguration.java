@@ -1,4 +1,4 @@
-package com.gom.memories_diary.security;
+package com.gom.memories_diary.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.gom.memories_diary.security;
+package com.gom.memories_diary.config.security;
 
 import com.gom.memories_diary.services.AuthorizationService;
 import com.gom.memories_diary.services.TokenService;
