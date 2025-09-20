@@ -3,15 +3,12 @@ package com.gom.memories_diary.services;
 import com.gom.memories_diary.dto.AuthDTO;
 import com.gom.memories_diary.dto.LoginResponseDTO;
 import com.gom.memories_diary.dto.RegisterDTO;
-import com.gom.memories_diary.model.Memory;
 import com.gom.memories_diary.model.User;
 import com.gom.memories_diary.repositories.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class AuthService {

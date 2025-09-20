@@ -2,14 +2,11 @@ package com.gom.memories_diary.controllers;
 
 import com.gom.memories_diary.dto.CreateMemoryDTO;
 import com.gom.memories_diary.dto.MemoryResponseDTO;
-import com.gom.memories_diary.model.Memory;
 import com.gom.memories_diary.services.MemoryService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/memories")
