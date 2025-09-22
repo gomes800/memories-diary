@@ -18,6 +18,11 @@ public class MemoryController {
         this.memoryService = memoryService;
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<MemoryResponseDTO> getMemoryById(@PathVariable Long id) {
+        return ResponseEntity.ok(memoryService.findMemoryById(id));
+    }
+
     @GetMapping("/my-memories")
     public ResponseEntity<Page<MemoryResponseDTO>> getUserMemmories(
             @RequestParam(defaultValue = "0") int page,

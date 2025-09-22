@@ -26,6 +26,14 @@ public class MemoryService {
         this.userService = userService;
     }
 
+    @PreAuthorize("@memorySecurity.isOwner(#id)")
+    public MemoryResponseDTO findMemoryById(Long memoryId) {
+        Memory memory = memoryRepository.findById(memoryId)
+                .orElseThrow(() -> new RuntimeException("Memory not found"));
+
+        return MemoryResponseDTO.fromEntity(memory);
+    }
+
     public Page<MemoryResponseDTO> getAllUserMemories(int page, int size) {
         Long ownerId = userService.getUserId();
         Pageable pageable = PageRequest.of(page, size);

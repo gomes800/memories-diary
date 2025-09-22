@@ -10,6 +10,10 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     public Long getUserId() {
         var auth = SecurityContextHolder.getContext().getAuthentication();
 
@@ -19,13 +23,5 @@ public class UserService {
 
         var user = (User) auth.getPrincipal();
         return user.getId();
-    }
-
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
-    public User createUser(User user) {
-        return userRepository.save(user);
     }
 }
