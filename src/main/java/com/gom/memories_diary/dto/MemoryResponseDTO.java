@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -17,7 +17,7 @@ public class MemoryResponseDTO {
 
     private Long id;
     private String title;
-    private LocalDateTime date;
+    private LocalDate date;
     private String content;
     private Long ownerId;
     private List<String> photoUrls;

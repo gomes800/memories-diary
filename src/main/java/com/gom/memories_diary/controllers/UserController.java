@@ -1,10 +1,6 @@
 package com.gom.memories_diary.controllers;
 
-import com.gom.memories_diary.model.User;
 import com.gom.memories_diary.services.UserService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,9 +14,4 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        userService.createUser(user);
-        return ResponseEntity.ok().body(user);
-    }
 }

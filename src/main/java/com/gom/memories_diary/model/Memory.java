@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,18 +22,11 @@ public class Memory implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    public Memory(CreateMemoryDTO dto, User owner) {
-        this.title = dto.getTitle();
-        this.date = dto.getDate();
-        this.content = dto.getContent();
-        this.owner = owner;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
-    private LocalDateTime date;
+    private LocalDate date;
     private String content;
 
     @ElementCollection
@@ -45,4 +38,10 @@ public class Memory implements Serializable {
     @JoinColumn(name = "owner_id")
     private User owner;
 
+    public Memory(CreateMemoryDTO dto, User owner) {
+        this.title = dto.getTitle();
+        this.date = dto.getDate();
+        this.content = dto.getContent();
+        this.owner = owner;
+    }
 }
