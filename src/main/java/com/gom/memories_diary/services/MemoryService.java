@@ -93,7 +93,7 @@ public class MemoryService {
                     Path filePath = Paths.get(uploadDir, fileName);
                     Files.copy(photo.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
-                    photoUrls.add("/uploads/" + fileName);
+                    photoUrls.add(fileName);
                 } catch (IOException e) {
                     throw new RuntimeException("Error when saving photo: " + e.getMessage(), e);
                 }
