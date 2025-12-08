@@ -18,12 +18,10 @@ Na raiz do projeto:
 
 1. Subir os serviços do Docker:
 
-```bash
 docker-compose up -d
 
 2. Iniciar a aplicação:
 
-'''bash
 mvn spring-boot:run
 
 A API deve ficar disponível em http://localhost:8080
